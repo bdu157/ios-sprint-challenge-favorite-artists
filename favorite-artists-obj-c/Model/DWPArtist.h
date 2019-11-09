@@ -1,5 +1,5 @@
 //
-//  Artist.h
+//  DWPArtist.h
 //  favorite-artists-obj-c
 //
 //  Created by Dongwoo Pae on 11/9/19.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Artist : NSObject
+@interface DWPArtist : NSObject
 
 -(instancetype)initWithDictionary:(NSDictionary *)dictionary;
 

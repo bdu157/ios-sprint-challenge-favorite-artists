@@ -15,9 +15,9 @@
 		0B70F25123765D0100FDFA05 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F25023765D0100FDFA05 /* main.m */; };
 		0B70F25D23765FFB00FDFA05 /* MainTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F25C23765FFB00FDFA05 /* MainTableViewController.m */; };
 		0B70F2602376601100FDFA05 /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F25F2376601100FDFA05 /* DetailViewController.m */; };
-		0B70F265237661F900FDFA05 /* Artist.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F264237661F900FDFA05 /* Artist.m */; };
+		0B70F265237661F900FDFA05 /* DWPArtist.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F264237661F900FDFA05 /* DWPArtist.m */; };
 		0B70F2682376620A00FDFA05 /* ArtistFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F2672376620A00FDFA05 /* ArtistFetcher.m */; };
-		0B70F26E2376629E00FDFA05 /* Artist+NSJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F26D2376629E00FDFA05 /* Artist+NSJSONSerialization.m */; };
+		0B70F27423768A2300FDFA05 /* DWPArtist+NSJSONSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B70F27323768A2300FDFA05 /* DWPArtist+NSJSONSerialization.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,12 +35,12 @@
 		0B70F25C23765FFB00FDFA05 /* MainTableViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainTableViewController.m; sourceTree = "<group>"; };
 		0B70F25E2376601100FDFA05 /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
 		0B70F25F2376601100FDFA05 /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		0B70F263237661F900FDFA05 /* Artist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Artist.h; sourceTree = "<group>"; };
-		0B70F264237661F900FDFA05 /* Artist.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Artist.m; sourceTree = "<group>"; };
+		0B70F263237661F900FDFA05 /* DWPArtist.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DWPArtist.h; sourceTree = "<group>"; };
+		0B70F264237661F900FDFA05 /* DWPArtist.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DWPArtist.m; sourceTree = "<group>"; };
 		0B70F2662376620A00FDFA05 /* ArtistFetcher.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArtistFetcher.h; sourceTree = "<group>"; };
 		0B70F2672376620A00FDFA05 /* ArtistFetcher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArtistFetcher.m; sourceTree = "<group>"; };
-		0B70F26C2376629E00FDFA05 /* Artist+NSJSONSerialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Artist+NSJSONSerialization.h"; sourceTree = "<group>"; };
-		0B70F26D2376629E00FDFA05 /* Artist+NSJSONSerialization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Artist+NSJSONSerialization.m"; sourceTree = "<group>"; };
+		0B70F27223768A2300FDFA05 /* DWPArtist+NSJSONSerialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "DWPArtist+NSJSONSerialization.h"; sourceTree = "<group>"; };
+		0B70F27323768A2300FDFA05 /* DWPArtist+NSJSONSerialization.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "DWPArtist+NSJSONSerialization.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -127,10 +127,10 @@
 		0B70F261237661C500FDFA05 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				0B70F263237661F900FDFA05 /* Artist.h */,
-				0B70F264237661F900FDFA05 /* Artist.m */,
-				0B70F26C2376629E00FDFA05 /* Artist+NSJSONSerialization.h */,
-				0B70F26D2376629E00FDFA05 /* Artist+NSJSONSerialization.m */,
+				0B70F263237661F900FDFA05 /* DWPArtist.h */,
+				0B70F264237661F900FDFA05 /* DWPArtist.m */,
+				0B70F27223768A2300FDFA05 /* DWPArtist+NSJSONSerialization.h */,
+				0B70F27323768A2300FDFA05 /* DWPArtist+NSJSONSerialization.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -214,13 +214,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0B70F27423768A2300FDFA05 /* DWPArtist+NSJSONSerialization.m in Sources */,
 				0B70F2602376601100FDFA05 /* DetailViewController.m in Sources */,
 				0B70F25D23765FFB00FDFA05 /* MainTableViewController.m in Sources */,
-				0B70F26E2376629E00FDFA05 /* Artist+NSJSONSerialization.m in Sources */,
 				0B70F24023765D0000FDFA05 /* AppDelegate.m in Sources */,
 				0B70F2682376620A00FDFA05 /* ArtistFetcher.m in Sources */,
 				0B70F25123765D0100FDFA05 /* main.m in Sources */,
-				0B70F265237661F900FDFA05 /* Artist.m in Sources */,
+				0B70F265237661F900FDFA05 /* DWPArtist.m in Sources */,
 				0B70F24323765D0000FDFA05 /* SceneDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

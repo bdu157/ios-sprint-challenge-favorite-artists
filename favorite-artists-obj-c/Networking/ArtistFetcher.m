@@ -81,7 +81,7 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         }
 
         
-        Artist *output = [[Artist alloc] initWithDictionary:dictionary];
+        DWPArtist *output = [[DWPArtist alloc] initWithDictionary:dictionary];
         [self.results addObject:output];
         
         //paring testing
@@ -97,7 +97,7 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     }] resume];
 }
 
--(NSArray<Artist *> *)artists
+-(NSArray<DWPArtist *> *)artists
 {
     return self.results.copy;
 }

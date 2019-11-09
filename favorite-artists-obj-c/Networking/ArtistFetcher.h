@@ -7,13 +7,13 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Artist.h"
+#import "DWPArtist.h"
 
 typedef void (^ArtistFetcherCompletionHandler)(NSError *error);
 
 @interface ArtistFetcher : NSObject
 
-@property (nonatomic, readonly) NSArray<Artist *> *artists;
+@property (nonatomic, readonly) NSArray<DWPArtist *> *artists;
 
 -(void)fetchArtistWithName:(NSString *)name completion:(ArtistFetcherCompletionHandler)completionHandler;
 
