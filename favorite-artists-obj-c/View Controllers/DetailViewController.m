@@ -47,4 +47,18 @@
     
 }
 
+#pragma mark - Private Methods
+-(void)updateViews
+{
+    
+}
+
+//setter
+-(void)setArtist:(DWPArtist *)artist
+{
+    if (_artist != artist) {
+        _artist = artist;
+        [self updateViews];
+    }
+}
 @end

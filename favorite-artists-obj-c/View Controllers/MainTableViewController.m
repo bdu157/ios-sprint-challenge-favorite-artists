@@ -9,6 +9,7 @@
 #import "MainTableViewController.h"
 #import "ArtistFetcher.h"
 #import "DWPArtist.h"
+#import "DetailViewController.h"
 
 @interface MainTableViewController ()
 
@@ -64,7 +65,15 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    
+    if ([segue.identifier isEqualToString:@"ToSearchArtist"]) {
+           NSIndexPath *selectedRow = self.tableView.indexPathForSelectedRow;
+           DetailViewController *detailVC = segue.destinationViewController;
+           detailVC.artistFetcher = self.artistFetcher;
+           detailVC.artist = [self.artistFetcher.artists objectAtIndex:selectedRow.row];
+       } else if ([segue.identifier isEqualToString:@"ToViewDetail"]) {
+           DetailViewController *detailVC = segue.destinationViewController;
+           detailVC.artistFetcher = self.artistFetcher;
+       }
 }
 
 
