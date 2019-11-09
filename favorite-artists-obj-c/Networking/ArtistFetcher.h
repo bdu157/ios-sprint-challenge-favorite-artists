@@ -17,5 +17,8 @@ typedef void (^ArtistFetcherCompletionHandler)(DWPArtist *artist, NSError *error
 
 -(void)fetchArtistWithName:(NSString *)name completion:(ArtistFetcherCompletionHandler)completionHandler;
 
+
+-(void)addArtist:(DWPArtist *)aArtist;
+-(void)removeArtist:(DWPArtist *)aArtist;
 @end
 
