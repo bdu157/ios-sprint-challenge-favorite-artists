@@ -57,7 +57,7 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
             NSLog(@"Error in fetching artist: %@", error);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(error);
+                completionHandler(nil, error);
             });
             return;
         }
@@ -75,30 +75,35 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
             NSLog(@"Error decoding json: %@", jsonError);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(jsonError);
+                completionHandler(nil, jsonError);
             });
             return;
         }
 
         
         DWPArtist *output = [[DWPArtist alloc] initWithDictionary:dictionary];
-        [self.results addObject:output];
+        //[self.results addObject:output];
         
-        //paring testing
-        NSLog(@"artistName: %@", [self.results[0] artistName]);
-        int yearFormed = [self.results[0] yearFormed];
-        NSLog(@"yearFormed: %@", [NSString stringWithFormat:@"%i", yearFormed]);
-        NSLog(@"biography: %@", [self.results[0] biography]);
+        //paring testing with output
+        NSLog(@"artistName: %@", [output artistName]);
+        NSLog(@"yearFormed: %i", [output yearFormed]);
+        NSLog(@"biography: %@", [output biography]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionHandler(jsonError);
+            completionHandler(output, jsonError);
         });
         
     }] resume];
 }
 
+
+
+
+
+
 -(NSArray<DWPArtist *> *)artists
 {
     return self.results.copy;
 }
+
 @end

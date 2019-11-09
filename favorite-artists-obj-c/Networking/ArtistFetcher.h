@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "DWPArtist.h"
 
-typedef void (^ArtistFetcherCompletionHandler)(NSError *error);
+typedef void (^ArtistFetcherCompletionHandler)(DWPArtist *artist, NSError *error);
 
 @interface ArtistFetcher : NSObject
 
