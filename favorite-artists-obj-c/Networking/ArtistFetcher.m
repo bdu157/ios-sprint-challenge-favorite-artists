@@ -91,7 +91,7 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         
         //paring testing with output
         NSLog(@"artistName: %@", [output artistName]);
-        NSLog(@"yearFormed: %i", [output yearFormed]);
+        NSLog(@"yearFormed: %d", [output yearFormed]);
         NSLog(@"biography: %@", [output biography]);
         
         dispatch_async(dispatch_get_main_queue(), ^{

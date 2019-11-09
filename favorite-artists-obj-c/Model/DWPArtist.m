@@ -18,7 +18,7 @@
         NSArray *artists = [dictionary objectForKey:@"artists"];
         _artistName = artists[0][@"strArtist"];
         
-        _yearFormed = (int)artists[0][@"intFormedYear"];
+        _yearFormed = [artists[0][@"intFormedYear"] intValue];
         
         _biography = artists[0][@"strBiographyEN"];
     }

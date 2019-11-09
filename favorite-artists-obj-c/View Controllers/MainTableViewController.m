@@ -47,7 +47,7 @@
     
     DWPArtist *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
     cell.textLabel.text = artist.artistName;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in ", artist.yearFormed];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in " ,artist.yearFormed];
     return cell;
 }
 

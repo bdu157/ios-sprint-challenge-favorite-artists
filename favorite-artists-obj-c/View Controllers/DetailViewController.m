@@ -73,7 +73,7 @@
         [_yearFormedLabel setHidden:NO];
         self.title = self.artist.artistName;
         self.nameLabel.text = self.artist.artistName;
-        self.yearFormedLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in ", self.artist.yearFormed];
+        self.yearFormedLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in " ,self.artist.yearFormed];
         self.detailTextView.text = self.artist.biography;
     } else {
         self.title = @"Add New Artist";

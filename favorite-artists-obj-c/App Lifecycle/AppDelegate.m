@@ -11,7 +11,7 @@
 
 @interface AppDelegate ()
 
-//@property ArtistFetcher *artistFetcher;
+@property ArtistFetcher *artistFetcher;
 
 @end
 
@@ -20,13 +20,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-//    _artistFetcher = [[ArtistFetcher alloc] init];
-//
-//    [_artistFetcher fetchArtistWithName:@"Weezer" completion:^(DWPArtist *artist, NSError *error) {
-//        if (error) {
-//            NSLog(@"Error in fetching the data");
-//        }
-//    }];
+    _artistFetcher = [[ArtistFetcher alloc] init];
+
+    [_artistFetcher fetchArtistWithName:@"Weezer" completion:^(DWPArtist *artist, NSError *error) {
+        if (error) {
+            NSLog(@"Error in fetching the data");
+        }
+    }];
     
     return YES;
 }
