@@ -7,9 +7,15 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "Artist.h"
+
+typedef void (^ArtistFetcherCompletionHandler)(NSError *error);
 
 @interface ArtistFetcher : NSObject
 
+@property (nonatomic, readonly) NSArray<Artist *> *artists;
+
+-(void)fetchArtistWithName:(NSString *)name completion:(ArtistFetcherCompletionHandler)completionHandler;
 
 @end
 

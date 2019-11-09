@@ -7,8 +7,11 @@
 //
 
 #import "AppDelegate.h"
+#import "ArtistFetcher.h"
 
 @interface AppDelegate ()
+
+@property ArtistFetcher *artistFetcher;
 
 @end
 
@@ -17,6 +20,14 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    _artistFetcher = [[ArtistFetcher alloc] init];
+    
+    [_artistFetcher fetchArtistWithName:@"Weezer" completion:^(NSError *error) {
+        if (error) {
+            NSLog(@"Error fetching artist %@", error);
+        }
+    }];
+    
     return YES;
 }
 
