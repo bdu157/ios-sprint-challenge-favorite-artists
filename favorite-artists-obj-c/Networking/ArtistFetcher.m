@@ -63,11 +63,42 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         }
         
         // testing fetching using dummyString
+        /*
         NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"Dummy string: %@", dummyString);
+        */
         
+        NSError *jsonError = nil;
+        NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+        
+        if (!dictionary) {
+            NSLog(@"Error decoding json: %@", jsonError);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(jsonError);
+            });
+            return;
+        }
+
+        
+        Artist *output = [[Artist alloc] initWithDictionary:dictionary];
+        [self.results addObject:output];
+        
+        //paring testing
+        NSLog(@"artistName: %@", [self.results[0] artistName]);
+        int yearFormed = [self.results[0] yearFormed];
+        NSLog(@"yearFormed: %@", [NSString stringWithFormat:@"%i", yearFormed]);
+        NSLog(@"biography: %@", [self.results[0] biography]);
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            completionHandler(jsonError);
+        });
         
     }] resume];
 }
 
+-(NSArray<Artist *> *)artists
+{
+    return self.results.copy;
+}
 @end

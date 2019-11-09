@@ -14,7 +14,13 @@
 {
     self = [super init];
     if (self) {
-        //after testing
+        //parsing
+        NSArray *artists = [dictionary objectForKey:@"artists"];
+        _artistName = artists[0][@"strArtist"];
+        
+        _yearFormed = (int) artists[0][@"intFormedYear"];
+        
+        _biography = artists[0][@"strBiographyEN"];
     }
     return self;
 }
