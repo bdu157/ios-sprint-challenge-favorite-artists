@@ -47,7 +47,7 @@
     
     DWPArtist *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
     cell.textLabel.text = artist.artistName;
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%i", @"Formed in ", artist.yearFormed];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in ", artist.yearFormed];
     return cell;
 }
 
@@ -65,12 +65,12 @@
 
 // In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    if ([segue.identifier isEqualToString:@"ToSearchArtist"]) {
+    if ([segue.identifier isEqualToString:@"ToViewDetail"]) {
            NSIndexPath *selectedRow = self.tableView.indexPathForSelectedRow;
            DetailViewController *detailVC = segue.destinationViewController;
            detailVC.artistFetcher = self.artistFetcher;
            detailVC.artist = [self.artistFetcher.artists objectAtIndex:selectedRow.row];
-       } else if ([segue.identifier isEqualToString:@"ToViewDetail"]) {
+       } else if ([segue.identifier isEqualToString:@"ToSearchArtist"]) {
            DetailViewController *detailVC = segue.destinationViewController;
            detailVC.artistFetcher = self.artistFetcher;
        }
