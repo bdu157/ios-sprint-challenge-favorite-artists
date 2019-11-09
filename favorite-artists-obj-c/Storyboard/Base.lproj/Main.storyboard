@@ -61,7 +61,7 @@
             </objects>
             <point key="canvasLocation" x="821.73913043478262" y="76.339285714285708"/>
         </scene>
-        <!--Detail View Controller-->
+        <!--Add New Artist-->
         <scene sceneID="aTw-Jm-cWT">
             <objects>
                 <viewController id="76G-hb-hzt" customClass="DetailViewController" sceneMemberID="viewController">
@@ -101,7 +101,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <viewLayoutGuide key="safeArea" id="YBS-Kr-yFM"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RgT-Mb-dmi">
+                    <navigationItem key="navigationItem" title="Add New Artist" id="RgT-Mb-dmi">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="tlP-Sn-V8A">
                             <connections>
                                 <action selector="Save:" destination="76G-hb-hzt" id="Uur-A2-4YZ"/>

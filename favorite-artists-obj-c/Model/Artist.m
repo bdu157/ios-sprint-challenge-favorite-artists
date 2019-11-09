@@ -10,4 +10,13 @@
 
 @implementation Artist
 
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary
+{
+    self = [super init];
+    if (self) {
+        //after testing
+    }
+    return self;
+}
+
 @end

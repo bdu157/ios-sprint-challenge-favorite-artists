@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
-NS_ASSUME_NONNULL_BEGIN
-
 @interface Artist : NSObject
+
+-(instancetype)initWithDictionary:(NSDictionary *)dictionary;
+
+@property (nonatomic, readonly, copy) NSString *artistName;
+
+@property (nonatomic, readonly, copy) NSString *biography;
+
+//primitive number - int
+@property (nonatomic, readonly) int yearFormed;
 
 @end
 
-NS_ASSUME_NONNULL_END
