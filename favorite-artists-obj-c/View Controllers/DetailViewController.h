@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  DetailViewController.h
 //  favorite-artists-obj-c
 //
 //  Created by Dongwoo Pae on 11/9/19.
@@ -8,8 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ViewController : UIViewController
-
+@interface DetailViewController : UIViewController <UISearchBarDelegate>
 
 @end
 
