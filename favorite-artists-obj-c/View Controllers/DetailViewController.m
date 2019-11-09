@@ -34,20 +34,22 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    NSString *artistName = [self.searchBar text];
     
+    [_artistFetcher fetchArtistWithName:artistName completion:^(DWPArtist *artist, NSError *error) {
+        if (error) {
+            NSLog(@"Error fetching artist: %@", error);
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.artist = artist;
+            [self updateViews];
+        });
+    }];
     
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 - (IBAction)Save:(id)sender {
-    
     
 }
 
