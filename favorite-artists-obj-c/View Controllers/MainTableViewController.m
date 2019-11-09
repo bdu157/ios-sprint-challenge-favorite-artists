@@ -13,7 +13,7 @@
 
 @interface MainTableViewController ()
 
-@property ArtistFetcher *artistFetcher;
+@property (nonatomic) ArtistFetcher *artistFetcher;
 
 @end
 

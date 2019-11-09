@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DWPArtist.h"
+@class DWPArtist;
 
 typedef void (^ArtistFetcherCompletionHandler)(DWPArtist *artist, NSError *error);
 

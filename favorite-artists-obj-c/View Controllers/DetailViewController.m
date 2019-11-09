@@ -25,6 +25,10 @@
     [super viewDidLoad];
     
     self.searchBar.delegate = self;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     [self updateViews];
 }
@@ -50,7 +54,14 @@
 }
 
 - (IBAction)Save:(id)sender {
+    BOOL isNewArtist = (self.artist != nil);
     
+    if (isNewArtist) {
+        [self.artistFetcher addArtist:self.artist];
+    } else {
+        NSLog(@"No artist being saved");
+    }
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Private Methods

@@ -7,6 +7,7 @@
 //
 
 #import "ArtistFetcher.h"
+#import "DWPArtist.h"
 
 static NSString *const ArtistFetcherBaseURLString = @"https://theaudiodb.com/api/";
 static NSString *const APIKey = @"1";
