@@ -26,9 +26,6 @@
 }
 
 
-
-
-
 #pragma mark - searchBar method
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
