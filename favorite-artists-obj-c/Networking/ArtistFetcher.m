@@ -8,6 +8,7 @@
 
 #import "ArtistFetcher.h"
 #import "DWPArtist.h"
+#import "DWPArtist+NSJSONSerialization.h"
 
 static NSString *const ArtistFetcherBaseURLString = @"https://theaudiodb.com/api/";
 static NSString *const APIKey = @"1";
@@ -70,20 +71,23 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         */
         
         NSError *jsonError = nil;
+        
+        //replacing this part with category
+
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
         
         if (!dictionary) {
             NSLog(@"Error decoding json: %@", jsonError);
-            
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(nil, jsonError);
             });
             return;
         }
-
         
         DWPArtist *output = [[DWPArtist alloc] initWithDictionary:dictionary];
         //[self.results addObject:output];
+        
         
         //paring testing with output
         NSLog(@"artistName: %@", [output artistName]);

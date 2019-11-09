@@ -7,7 +7,20 @@
 //
 
 #import "DWPArtist+NSJSONSerialization.h"
+#import "DWPArtist.h"
 
 @implementation DWPArtist (NSJSONSerialization)
 
+-(DWPArtist *)dwp_changeObjecttoDictionaryWithData
+{
+    NSDictionary * dictionary = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingAllowFragments error:nil];
+    DWPArtist * output = [[DWPArtist alloc] initWithDictionary:dictionary];
+    return output;
+}
+
 @end
+
+/*
+NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
+DWPArtist *output = [[DWPArtist alloc] initWithDictionary:dictionary];
+*/
