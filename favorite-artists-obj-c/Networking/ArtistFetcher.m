@@ -9,7 +9,10 @@
 #import "ArtistFetcher.h"
 
 static NSString *const ArtistFetcherBaseURLString = @"https://theaudiodb.com/api/";
+static NSString *const APIKey = @"1";
 
+
+static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api/v1/json/1/search.php";
 //https://www.theaudiodb.com/api/v1/json/1/search.php?s=Weezer
 
 @interface ArtistFetcher ()
@@ -33,17 +36,38 @@ static NSString *const ArtistFetcherBaseURLString = @"https://theaudiodb.com/api
 {
     NSLog(@"fetching started");
     
-    NSString *url = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
-    [url stringByAppendingPathComponent:@"json"];
-    [url stringByAppendingPathComponent:@"1"];
-    
-    NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithString:url];
-    NSMutableArray *queryItems = [NSMutableArray arrayWithObjects:[NSURLQueryItem queryItemWithName:@"search.php?s" value:name], nil];
+    /*
+    NSString *urlString = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
+    [urlString stringByAppendingPathComponent:@"json"];
+    [urlString stringByAppendingPathComponent:APIKey];
+    [urlString stringByAppendingPathComponent:@"search.php"];
+    */
+     
+    NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithString:ArtistFetcherFullURLString];
+    NSMutableArray *queryItems = [NSMutableArray arrayWithObjects:[NSURLQueryItem queryItemWithName:@"s" value:name], nil];
     
     URLComponents.queryItems = queryItems;
     NSURL *URL = URLComponents.URL;
     
     //URLSession
+    [[NSURLSession.sharedSession dataTaskWithURL:URL completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSLog(@"URLSession started");
+        
+        if (error) {
+            NSLog(@"Error in fetching artist: %@", error);
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completionHandler(error);
+            });
+            return;
+        }
+        
+        // testing fetching using dummyString
+        NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"Dummy string: %@", dummyString);
+        
+        
+    }] resume];
 }
 
 @end
