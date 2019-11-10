@@ -20,8 +20,8 @@ typedef void (^ArtistFetcherCompletionHandler)(NSDictionary *artist, NSError *er
 -(void)addArtist:(NSDictionary *)aArtist;
 -(void)removeArtist:(NSDictionary *)aArtist;
 
--(void)saveData:(NSDictionary *)aArtist;
--(void)reloadData:(NSDictionary *)aArtist;
+-(void)saveData;
+-(void)loadData;
 
 
 @end

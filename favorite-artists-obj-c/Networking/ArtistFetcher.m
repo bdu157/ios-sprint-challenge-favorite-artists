@@ -39,12 +39,12 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     NSLog(@"fetching started");
     
     /*
-    NSString *urlString = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
-    [urlString stringByAppendingPathComponent:@"json"];
-    [urlString stringByAppendingPathComponent:APIKey];
-    [urlString stringByAppendingPathComponent:@"search.php"];
-    */
-     
+     NSString *urlString = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
+     [urlString stringByAppendingPathComponent:@"json"];
+     [urlString stringByAppendingPathComponent:APIKey];
+     [urlString stringByAppendingPathComponent:@"search.php"];
+     */
+    
     NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithString:ArtistFetcherFullURLString];
     NSMutableArray *queryItems = [NSMutableArray arrayWithObjects:[NSURLQueryItem queryItemWithName:@"s" value:name], nil];
     
@@ -66,19 +66,19 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         
         // testing fetching using dummyString
         /*
-        NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"Dummy string: %@", dummyString);
-        */
+         NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"Dummy string: %@", dummyString);
+         */
         
         NSError *jsonError = nil;
         
         //replacing this part with category
-
+        
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
         
         if (!dictionary) {
             NSLog(@"Error decoding json: %@", jsonError);
-
+            
             dispatch_async(dispatch_get_main_queue(), ^{
                 completionHandler(nil, jsonError);
             });
@@ -87,7 +87,7 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         
         NSDictionary *output = [[DWPArtist
                                  alloc]initWithDictionaryFromCategory:dictionary].toDictionary;
-
+        
         //paring testing with output
         NSLog(@"artistName: %@", [output objectForKey:@"strArtist"]);
         NSLog(@"yearFormed: %@", [output objectForKey:@"yearFormed"]);
@@ -115,14 +115,21 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
 }
 
 //fileManager ffor saving and reloading the data
--(void)saveData:(NSDictionary *)aArtist;
+-(void)saveData
 {
     
 }
 
--(void)reloadData:(NSDictionary *)aArtist;
+-(void)loadData;
 {
+    NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
     
+    NSMutableArray *artistDictionaries = [[NSDictionary alloc] initWithContentsOfURL:documentDirectory][@"results"];
+    
+    for (NSDictionary *dictionary in artistDictionaries) {
+        DWPArtist *artist = [[DWPArtist alloc] initWithDictionary:dictionary];
+        [self.results addObject:artist];
+    };
 }
 
 
