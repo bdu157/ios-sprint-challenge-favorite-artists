@@ -10,8 +10,9 @@
 
 @interface DWPArtist (NSJSONSerialization)
 
--(DWPArtist *)dwp_changeObjecttoDictionaryWithData;
+-(instancetype)initWithDictionaryFromCategory:(NSDictionary *)dictionary;
 
+-(NSDictionary *)toDictionary;
 @end
 
 

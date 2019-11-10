@@ -17,10 +17,12 @@
         //parsing
         NSArray *artists = [dictionary objectForKey:@"artists"];
         _artistName = artists[0][@"strArtist"];
-        
+
         _yearFormed = [artists[0][@"intFormedYear"] intValue];
-        
+
         _biography = artists[0][@"strBiographyEN"];
+        
+        
     }
     return self;
 }

@@ -105,12 +105,14 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
 -(void)addArtist:(DWPArtist *)aArtist
 {
     [self.results addObject:aArtist];
+    //saveArtist (data persistence)
 }
 
 //remove
 -(void)removeArtist:(DWPArtist *)aArtist
 {
     [self.results removeObject:aArtist];
+    //saveArtist (data persistence)
 }
 
 

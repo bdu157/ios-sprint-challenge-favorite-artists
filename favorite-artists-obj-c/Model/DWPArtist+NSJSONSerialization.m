@@ -11,13 +11,16 @@
 
 @implementation DWPArtist (NSJSONSerialization)
 
--(DWPArtist *)dwp_changeObjecttoDictionaryWithData
+-(instancetype)initWithDictionaryFromCategory:(NSDictionary *)dictionary;
 {
-    NSDictionary * dictionary = [NSJSONSerialization JSONObjectWithData:self options:NSJSONReadingAllowFragments error:nil];
-    DWPArtist * output = [[DWPArtist alloc] initWithDictionary:dictionary];
-    return output;
+    DWPArtist *artist = [[DWPArtist alloc] initWithDictionary:dictionary];
+    return artist;
 }
 
+-(NSDictionary *)toDictionary
+{
+    return @{@"strArtist": self.artistName, @"strBiographyEN": self.biography, @"yearFormed": [[NSNumber alloc] initWithInt: self.yearFormed]};
+}
 @end
 
 /*
