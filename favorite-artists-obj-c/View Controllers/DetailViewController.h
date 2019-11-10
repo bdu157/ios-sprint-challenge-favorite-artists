@@ -14,7 +14,7 @@
 @interface DetailViewController : UIViewController <UISearchBarDelegate>
 
 @property (nonatomic) ArtistFetcher *artistFetcher;
-@property (nonatomic) DWPArtist *artist;
+@property (nonatomic) NSDictionary *artist;
 
 @end
 

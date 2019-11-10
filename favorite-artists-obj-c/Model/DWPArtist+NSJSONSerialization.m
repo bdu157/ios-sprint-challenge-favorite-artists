@@ -17,9 +17,11 @@
     return artist;
 }
 
+
+//this will bring dictionary format of DWPArtist
 -(NSDictionary *)toDictionary
 {
-    return @{@"strArtist": self.artistName, @"strBiographyEN": self.biography, @"yearFormed": [[NSNumber alloc] initWithInt: self.yearFormed]};
+    return @{@"strArtist": self.artistName, @"strBiographyEN": self.biography, @"intFormedYear": [[NSNumber alloc] initWithInt: self.yearFormed]};
 }
 @end
 

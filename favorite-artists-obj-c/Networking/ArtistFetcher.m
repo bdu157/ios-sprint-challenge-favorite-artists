@@ -85,40 +85,49 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
             return;
         }
         
-        DWPArtist *output = [[DWPArtist alloc] initWithDictionary:dictionary];
-        //[self.results addObject:output];
-        
-        
+        NSDictionary *output = [[DWPArtist
+                                 alloc]initWithDictionaryFromCategory:dictionary].toDictionary;
+
         //paring testing with output
-        NSLog(@"artistName: %@", [output artistName]);
-        NSLog(@"yearFormed: %d", [output yearFormed]);
-        NSLog(@"biography: %@", [output biography]);
+        NSLog(@"artistName: %@", [output objectForKey:@"strArtist"]);
+        NSLog(@"yearFormed: %@", [output objectForKey:@"yearFormed"]);
+        NSLog(@"biography: %@", [output objectForKey:@"strBiographyEN"]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionHandler(output, jsonError);
+            completionHandler(output, jsonError); //this is dictionary but i am passing DWPArtist
         });
         
     }] resume];
 }
 
 //add
--(void)addArtist:(DWPArtist *)aArtist
+-(void)addArtist:(NSDictionary *)aArtist
 {
     [self.results addObject:aArtist];
     //saveArtist (data persistence)
 }
 
 //remove
--(void)removeArtist:(DWPArtist *)aArtist
+-(void)removeArtist:(NSDictionary *)aArtist
 {
     [self.results removeObject:aArtist];
     //saveArtist (data persistence)
 }
 
+//fileManager ffor saving and reloading the data
+-(void)saveData:(NSDictionary *)aArtist;
+{
+    
+}
 
--(NSArray<DWPArtist *> *)artists
+-(void)reloadData:(NSDictionary *)aArtist;
+{
+    
+}
+
+
+-(NSArray<NSDictionary *> *)artists
 {
     return self.results.copy;
 }
-
 @end

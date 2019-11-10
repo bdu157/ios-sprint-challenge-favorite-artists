@@ -40,7 +40,7 @@
 {
     NSString *artistName = [self.searchBar text];
     
-    [_artistFetcher fetchArtistWithName:artistName completion:^(DWPArtist *artist, NSError *error) {
+    [_artistFetcher fetchArtistWithName:artistName completion:^(NSDictionary *artist, NSError *error) {
         if (error) {
             NSLog(@"Error fetching artist: %@", error);
         }
@@ -56,7 +56,8 @@
 - (IBAction)Save:(id)sender {
     BOOL isNewArtist = (self.artist != nil);
     
-    if (isNewArtist) {
+    if (isNewArtist) {\
+        
         [self.artistFetcher addArtist:self.artist];
     } else {
         NSLog(@"No artist being saved");
@@ -71,10 +72,10 @@
         [_nameLabel setHidden:NO];
         [_detailTextView setHidden:NO];
         [_yearFormedLabel setHidden:NO];
-        self.title = self.artist.artistName;
-        self.nameLabel.text = self.artist.artistName;
-        self.yearFormedLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in " ,self.artist.yearFormed];
-        self.detailTextView.text = self.artist.biography;
+        self.title = [self.artist objectForKey:@"strArtist"];
+        self.nameLabel.text = [self.artist objectForKey:@"strArtist"];
+        self.yearFormedLabel.text = [NSString stringWithFormat:@"%@%@", @"Formed in " ,[self.artist objectForKey:@"intFormedYear"]];
+        self.detailTextView.text = [self.artist objectForKey:@"strBiographyEN"];
     } else {
         self.title = @"Add New Artist";
         [_nameLabel setHidden:YES];
@@ -84,7 +85,7 @@
 }
 
 //setter
--(void)setArtist:(DWPArtist *)artist
+-(void)setArtist:(NSDictionary *)artist
 {
     if (_artist != artist) {
         _artist = artist;
