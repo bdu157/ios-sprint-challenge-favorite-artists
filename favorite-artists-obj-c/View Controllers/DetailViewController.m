@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *yearFormedLabel;
 @property (weak, nonatomic) IBOutlet UITextView *detailTextView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveButton;
 
 @end
 
@@ -76,6 +77,7 @@
         self.nameLabel.text = [self.artist objectForKey:@"strArtist"];
         self.yearFormedLabel.text = [NSString stringWithFormat:@"%@%@", @"Formed in " ,[self.artist objectForKey:@"intFormedYear"]];
         self.detailTextView.text = [self.artist objectForKey:@"strBiographyEN"];
+        [_saveButton setEnabled:false];
     } else {
         self.title = @"Add New Artist";
         [_nameLabel setHidden:YES];

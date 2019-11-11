@@ -125,13 +125,14 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     for (NSDictionary *dictionary in self.results) {
         [artistDictionaries addObject:dictionary];
     }
-    
     [artistDictionaries writeToURL:documentDirectory atomically:YES];
 
     //try using NSData so change an array of DWPArtist dictionaries to NSData and save it into results.plist
     
     
 }
+
+//Q : what is benefit of saving data as an array of dictionaries format instead of array of DWPArist format?????
 
 -(void)loadData;
 {
@@ -147,7 +148,6 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
         [self.results addObject:artist];
     }
 }
-
 
 -(NSArray<NSDictionary *> *)artists
 {

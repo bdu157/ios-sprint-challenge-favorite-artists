@@ -111,6 +111,7 @@
                     <connections>
                         <outlet property="detailTextView" destination="E6U-ru-2uG" id="Sr8-ow-1xO"/>
                         <outlet property="nameLabel" destination="Rfx-kU-6Ml" id="pjs-H0-q4m"/>
+                        <outlet property="saveButton" destination="tlP-Sn-V8A" id="OLR-3L-oDy"/>
                         <outlet property="searchBar" destination="paT-sg-2gy" id="3nF-wV-oeJ"/>
                         <outlet property="yearFormedLabel" destination="yRB-Gp-pUA" id="chb-5O-coB"/>
                     </connections>
@@ -139,6 +140,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="jHO-nJ-5nA"/>
+        <segue reference="vF2-BY-HdF"/>
     </inferredMetricsTieBreakers>
 </document>
