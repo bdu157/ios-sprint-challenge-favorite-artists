@@ -49,6 +49,7 @@
         dispatch_async(dispatch_get_main_queue(), ^{
             self.artist = artist;
             [self updateViews];
+            [self.saveButton setEnabled:true];
         });
     }];
     
@@ -57,7 +58,7 @@
 - (IBAction)Save:(id)sender {
     BOOL isNewArtist = (self.artist != nil);
     
-    if (isNewArtist) {\
+    if (isNewArtist) {
         
         [self.artistFetcher addArtist:self.artist];
     } else {
@@ -83,6 +84,7 @@
         [_nameLabel setHidden:YES];
         [_detailTextView setHidden:YES];
         [_yearFormedLabel setHidden:YES];
+        [_saveButton setEnabled:true];
     }
 }
 
