@@ -125,11 +125,15 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     for (NSDictionary *dictionary in self.results) {
         [artistDictionaries addObject:dictionary];
     }
+    
+    //using NSArray
+    /*
     [artistDictionaries writeToURL:documentDirectory atomically:YES];
-
-    //try using NSData so change an array of DWPArtist dictionaries to NSData and save it into results.plist
-    
-    
+    */
+     
+    //using NSData with NSJSONSerialization. array -> NSData
+    NSData *data = [NSJSONSerialization dataWithJSONObject:artistDictionaries options:0 error:nil];
+    [data writeToURL:documentDirectory atomically:YES];
 }
 
 //Q : what is benefit of saving data as an array of dictionaries format instead of array of DWPArist format?????
@@ -142,10 +146,23 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     //Alternatively, you can just change DWPArtst format into toDictionary when saving it through fileManager and change the array of dictionaries to DWPArtist format when loading them to show in mainTableView controller if you choose to use DWPArtist format in mainTalbeView and you fetch DWPArtist format from the JSON file
     NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
     
+    //Bring NSArray from persistent store
+    /*
     NSMutableArray *artistDictionaries = [[NSMutableArray alloc] initWithContentsOfURL:documentDirectory];
-    
     for (NSDictionary *artist in artistDictionaries) {
         [self.results addObject:artist];
+    }
+    */
+    
+    //using NSData with NSJSONSerialization. NSData -> array
+    NSData *data = [[NSData alloc] initWithContentsOfURL:documentDirectory];
+    if (data != nil) {
+    NSArray *artistDictionaries = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        for (NSDictionary *artist in artistDictionaries) {
+            [self.results addObject:artist];
+        }
+    } else {
+        return;
     }
 }
 
