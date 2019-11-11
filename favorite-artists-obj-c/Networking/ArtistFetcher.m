@@ -104,32 +104,48 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
 -(void)addArtist:(NSDictionary *)aArtist
 {
     [self.results addObject:aArtist];
-    //saveArtist (data persistence)
+    [self saveData];
 }
 
 //remove
 -(void)removeArtist:(NSDictionary *)aArtist
 {
     [self.results removeObject:aArtist];
-    //saveArtist (data persistence)
+    [self saveData];
 }
 
-//fileManager ffor saving and reloading the data
+//fileManager for saving and reloading the data
 -(void)saveData
 {
+    NSLog(@"Saving data");
+    NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
+    
+    NSMutableArray *artistDictionaries = [[NSMutableArray alloc]init];
+    
+    for (NSDictionary *dictionary in self.results) {
+        [artistDictionaries addObject:dictionary];
+    }
+    
+    [artistDictionaries writeToURL:documentDirectory atomically:YES];
+
+    //try using NSData so change an array of DWPArtist dictionaries to NSData and save it into results.plist
+    
     
 }
 
 -(void)loadData;
 {
+    NSLog(@"Loadig data");
+    //when fetching the data, it turns into dictionary and adds into an array and they get handled in tableView as an array of ditionary format instead of DWPArtist format
+    //so when you load savedData, you just need to add these datas back into results array, which is an array of NSDictionaries since they get handled as in dictionary format not in DWPArtist format
+    //Alternatively, you can just change DWPArtst format into toDictionary when saving it through fileManager and change the array of dictionaries to DWPArtist format when loading them to show in mainTableView controller if you choose to use DWPArtist format in mainTalbeView and you fetch DWPArtist format from the JSON file
     NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
     
-    NSMutableArray *artistDictionaries = [[NSDictionary alloc] initWithContentsOfURL:documentDirectory][@"results"];
+    NSMutableArray *artistDictionaries = [[NSMutableArray alloc] initWithContentsOfURL:documentDirectory];
     
-    for (NSDictionary *dictionary in artistDictionaries) {
-        DWPArtist *artist = [[DWPArtist alloc] initWithDictionary:dictionary];
+    for (NSDictionary *artist in artistDictionaries) {
         [self.results addObject:artist];
-    };
+    }
 }
 
 

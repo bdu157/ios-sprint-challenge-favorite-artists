@@ -23,12 +23,13 @@
     [super viewDidLoad];
     
     _artistFetcher = [[ArtistFetcher alloc] init];
+    
+    [_artistFetcher loadData];
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     [self.tableView reloadData];
 }
 
@@ -55,7 +56,7 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         NSDictionary *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
-        [self.artistFetcher removeArtist:[artist objectForKey:@"strArtist"]];
+        [self.artistFetcher removeArtist:artist];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
 }
