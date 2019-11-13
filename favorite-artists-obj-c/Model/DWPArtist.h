@@ -21,5 +21,7 @@
 //primitive number - int
 @property (nonatomic, readonly) int yearFormed;
 
+-(instancetype)initWithDictionaryFromDWPArtist:(NSDictionary *)dictionary;
+
 @end
 

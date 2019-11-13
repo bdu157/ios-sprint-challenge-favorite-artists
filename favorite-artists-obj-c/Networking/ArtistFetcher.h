@@ -9,16 +9,16 @@
 #import <Foundation/Foundation.h>
 @class DWPArtist;
 
-typedef void (^ArtistFetcherCompletionHandler)(NSDictionary *artist, NSError *error);
+typedef void (^ArtistFetcherCompletionHandler)(DWPArtist *artist, NSError *error);
 
 @interface ArtistFetcher : NSObject
 
-@property (nonatomic, readonly) NSArray<NSDictionary *> *artists;
+@property (nonatomic, readonly) NSArray<DWPArtist *> *artists;
 
 -(void)fetchArtistWithName:(NSString *)name completion:(ArtistFetcherCompletionHandler)completionHandler;
 
--(void)addArtist:(NSDictionary *)aArtist;
--(void)removeArtist:(NSDictionary *)aArtist;
+-(void)addArtist:(DWPArtist *)aArtist;
+-(void)removeArtist:(DWPArtist *)aArtist;
 
 -(void)saveData;
 -(void)loadData;

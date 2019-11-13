@@ -85,18 +85,17 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
             return;
         }
         
-        NSDictionary *output = [[DWPArtist
-                                 alloc]initWithDictionaryFromCategory:dictionary].toDictionary;
+        DWPArtist *output = [[DWPArtist
+                                 alloc]initWithDictionaryFromCategory:dictionary];
         
         //paring testing with output
-        NSLog(@"artistName: %@", [output objectForKey:@"strArtist"]);
-        NSLog(@"yearFormed: %@", [output objectForKey:@"yearFormed"]);
-        NSLog(@"biography: %@", [output objectForKey:@"strBiographyEN"]);
+        NSLog(@"artistName: %@", [output artistName]);
+        NSLog(@"yearFormed: %d", [output yearFormed]);
+        NSLog(@"biography: %@", [output biography]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
             completionHandler(output, jsonError); //this is dictionary but i am passing DWPArtist
         });
-        
     }] resume];
 }
 
@@ -122,8 +121,11 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     
     NSMutableArray *artistDictionaries = [[NSMutableArray alloc]init];
     
-    for (NSDictionary *dictionary in self.results) {
-        [artistDictionaries addObject:dictionary];
+    
+    
+    for (DWPArtist *dictionary in self.results) {
+        NSDictionary *dictionaryFromDWPArtistDic = dictionary.toDictionary;
+        [artistDictionaries addObject:dictionaryFromDWPArtistDic];
     }
     
     //using NSArray
@@ -158,7 +160,8 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     NSData *data = [[NSData alloc] initWithContentsOfURL:documentDirectory];
     if (data != nil) {
     NSArray *artistDictionaries = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
-        for (NSDictionary *artist in artistDictionaries) {
+        for (NSDictionary *dictionaryFromDWPArtistDic in artistDictionaries) {
+            DWPArtist *artist = [[DWPArtist alloc] initWithDictionaryFromDWPArtist:dictionaryFromDWPArtistDic];
             [self.results addObject:artist];
         }
     } else {
@@ -170,4 +173,5 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
 {
     return self.results.copy;
 }
+
 @end

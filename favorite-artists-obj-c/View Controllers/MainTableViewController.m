@@ -46,16 +46,16 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
     
-    NSDictionary *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
-    cell.textLabel.text = [artist objectForKey:@"strArtist"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%@", @"Formed in ", [artist objectForKey:@"intFormedYear"]];
+    DWPArtist *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
+    cell.textLabel.text = [artist artistName];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@%d", @"Formed in ", [artist yearFormed]];
     return cell;
 }
 
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        NSDictionary *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
+        DWPArtist *artist = [self.artistFetcher.artists objectAtIndex:indexPath.row];
         [self.artistFetcher removeArtist:artist];
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
     }
