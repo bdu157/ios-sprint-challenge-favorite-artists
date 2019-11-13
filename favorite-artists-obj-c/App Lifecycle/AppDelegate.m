@@ -17,16 +17,15 @@
 
 @implementation AppDelegate
 
-
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
-    _artistFetcher = [[ArtistFetcher alloc] init];
-    
-    [_artistFetcher fetchArtistWithName:@"Weezer" completion:^(NSError *error) {
-        if (error) {
-            NSLog(@"Error fetching artist %@", error);
-        }
-    }];
+//    _artistFetcher = [[ArtistFetcher alloc] init];
+//
+//    [_artistFetcher fetchArtistWithName:@"Weezer" completion:^(NSDictionary *artist, NSError *error) {
+//        if (error) {
+//            NSLog(@"Error in fetching the data");
+//        }
+//    }];
     
     return YES;
 }

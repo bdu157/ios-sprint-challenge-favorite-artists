@@ -7,6 +7,8 @@
 //
 
 #import "ArtistFetcher.h"
+#import "DWPArtist.h"
+#import "DWPArtist+NSJSONSerialization.h"
 
 static NSString *const ArtistFetcherBaseURLString = @"https://theaudiodb.com/api/";
 static NSString *const APIKey = @"1";
@@ -37,12 +39,12 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
     NSLog(@"fetching started");
     
     /*
-    NSString *urlString = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
-    [urlString stringByAppendingPathComponent:@"json"];
-    [urlString stringByAppendingPathComponent:APIKey];
-    [urlString stringByAppendingPathComponent:@"search.php"];
-    */
-     
+     NSString *urlString = [ArtistFetcherBaseURLString stringByAppendingPathComponent:@"v1"];
+     [urlString stringByAppendingPathComponent:@"json"];
+     [urlString stringByAppendingPathComponent:APIKey];
+     [urlString stringByAppendingPathComponent:@"search.php"];
+     */
+    
     NSURLComponents *URLComponents = [[NSURLComponents alloc] initWithString:ArtistFetcherFullURLString];
     NSMutableArray *queryItems = [NSMutableArray arrayWithObjects:[NSURLQueryItem queryItemWithName:@"s" value:name], nil];
     
@@ -57,48 +59,119 @@ static NSString *const ArtistFetcherFullURLString = @"https://theaudiodb.com/api
             NSLog(@"Error in fetching artist: %@", error);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(error);
+                completionHandler(nil, error);
             });
             return;
         }
         
         // testing fetching using dummyString
         /*
-        NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"Dummy string: %@", dummyString);
-        */
+         NSString *dummyString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+         NSLog(@"Dummy string: %@", dummyString);
+         */
         
         NSError *jsonError = nil;
+        
+        //replacing this part with category
+        
         NSDictionary *dictionary = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&jsonError];
         
         if (!dictionary) {
             NSLog(@"Error decoding json: %@", jsonError);
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                completionHandler(jsonError);
+                completionHandler(nil, jsonError);
             });
             return;
         }
-
         
-        Artist *output = [[Artist alloc] initWithDictionary:dictionary];
-        [self.results addObject:output];
+        DWPArtist *output = [[DWPArtist
+                                 alloc]initWithDictionaryFromCategory:dictionary];
         
-        //paring testing
-        NSLog(@"artistName: %@", [self.results[0] artistName]);
-        int yearFormed = [self.results[0] yearFormed];
-        NSLog(@"yearFormed: %@", [NSString stringWithFormat:@"%i", yearFormed]);
-        NSLog(@"biography: %@", [self.results[0] biography]);
+        //paring testing with output
+        NSLog(@"artistName: %@", [output artistName]);
+        NSLog(@"yearFormed: %d", [output yearFormed]);
+        NSLog(@"biography: %@", [output biography]);
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            completionHandler(jsonError);
+            completionHandler(output, jsonError); //this is dictionary but i am passing DWPArtist
         });
-        
     }] resume];
 }
 
--(NSArray<Artist *> *)artists
+//add
+-(void)addArtist:(NSDictionary *)aArtist
+{
+    [self.results addObject:aArtist];
+    [self saveData];
+}
+
+//remove
+-(void)removeArtist:(NSDictionary *)aArtist
+{
+    [self.results removeObject:aArtist];
+    [self saveData];
+}
+
+//fileManager for saving and reloading the data
+-(void)saveData
+{
+    NSLog(@"Saving data");
+    NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
+    
+    NSMutableArray *artistDictionaries = [[NSMutableArray alloc]init];
+    
+    
+    
+    for (DWPArtist *dictionary in self.results) {
+        NSDictionary *dictionaryFromDWPArtistDic = dictionary.toDictionary;
+        [artistDictionaries addObject:dictionaryFromDWPArtistDic];
+    }
+    
+    //using NSArray
+    /*
+    [artistDictionaries writeToURL:documentDirectory atomically:YES];
+    */
+     
+    //using NSData with NSJSONSerialization. array -> NSData
+    NSData *data = [NSJSONSerialization dataWithJSONObject:artistDictionaries options:0 error:nil];
+    [data writeToURL:documentDirectory atomically:YES];
+}
+
+//Q : what is benefit of saving data as an array of dictionaries format instead of array of DWPArist format?????
+
+-(void)loadData;
+{
+    NSLog(@"Loadig data");
+    //when fetching the data, it turns into dictionary and adds into an array and they get handled in tableView as an array of ditionary format instead of DWPArtist format
+    //so when you load savedData, you just need to add these datas back into results array, which is an array of NSDictionaries since they get handled as in dictionary format not in DWPArtist format
+    //Alternatively, you can just change DWPArtst format into toDictionary when saving it through fileManager and change the array of dictionaries to DWPArtist format when loading them to show in mainTableView controller if you choose to use DWPArtist format in mainTalbeView and you fetch DWPArtist format from the JSON file
+    NSURL *documentDirectory = [[[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject] URLByAppendingPathComponent:@"results.plist"];
+    
+    //Bring NSArray from persistent store
+    /*
+    NSMutableArray *artistDictionaries = [[NSMutableArray alloc] initWithContentsOfURL:documentDirectory];
+    for (NSDictionary *artist in artistDictionaries) {
+        [self.results addObject:artist];
+    }
+    */
+    
+    //using NSData with NSJSONSerialization. NSData -> array
+    NSData *data = [[NSData alloc] initWithContentsOfURL:documentDirectory];
+    if (data != nil) {
+    NSArray *artistDictionaries = [NSJSONSerialization JSONObjectWithData:data options:0 error:nil];
+        for (NSDictionary *dictionaryFromDWPArtistDic in artistDictionaries) {
+            DWPArtist *artist = [[DWPArtist alloc] initWithDictionaryFromDWPArtist:dictionaryFromDWPArtistDic];
+            [self.results addObject:artist];
+        }
+    } else {
+        return;
+    }
+}
+
+-(NSArray<NSDictionary *> *)artists
 {
     return self.results.copy;
 }
+
 @end

@@ -8,7 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class ArtistFetcher;
+@class DWPArtist;
+
 @interface DetailViewController : UIViewController <UISearchBarDelegate>
+
+@property (nonatomic) ArtistFetcher *artistFetcher;
+@property (nonatomic) DWPArtist *artist;
 
 @end
 
